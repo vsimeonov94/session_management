@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Spring Boot Session Example</title>
+</head>
+<body>
+
+<div>
+    <h2>Add messages</h2>
+    <form th:action="@{/persistMessage}" method="post">
+        <textarea name="msg" cols="40" rows="2"></textarea>
+        <br> <input type="submit" value="Save Message" />
+    </form>
+</div>
+<div>
+    <h2>Add object</h2>
+    <form action="#" th:action="@{/persistObject}" th:object="${sessionObject}" method="post">
+        <input type="text" th:field="${sessionObject.bar}" />
+        <input type="text" th:field="${sessionObject.baz}">
+        <input type="submit" />
+    </form>
+</div>
+
+<div>
+    <h2>Messages in current session</h2>
+    <ul th:each="message : ${sessionMessages}">
+        <li th:text="${message}">...</li>
+    </ul>
+</div>
+<div>
+    <h2>Objects in current session</h2>
+    <p th:text="${sessionObject.getBar()}">...</p>
+    <p th:text="${sessionObject.getBaz()}">...</p>
+</div>
+
+<div>
+    <h2>Clear session</h2>
+    <form th:action="@{/destroy}" method="post">
+        <input type="submit" value="Destroy Session" />
+    </form>
+</div>
+</body>
+</html>
